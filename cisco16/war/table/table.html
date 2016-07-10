@@ -86,8 +86,22 @@
 
 </div>
 
+<script type="text/javascript">
+function onAdd() {
+	var selectedEmails = [];
+	$(".box-table #main-table .selected .user-email").each(function( index ) {
+		console.log("selected: ");
+		console.log( index + ": " + $( this ).text() );
+		selectedEmails.push($(this).text());
+	});
+	
+	console.log("selected: " + selectedEmails);
+	
+	$('#middle-button').show();
+}
+</script>
 <div style="margin: 20px auto; width: 50px;">
-	<a href="#" class="myButton" onclick="$('#middle-button').show()">Add</a>
+	<a href="#" id="add-button" class="myButton" onclick="onAdd()">Add</a>
 </div>
 
 <div id="middle-button" style="display: none;">
