@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=600, initial-scale=1">
+    <title>meeting integration</title>
+  </head>
+  <body> 
+  	<img id="officelayout" title="" alt="" src="officelayout.png"/>
+    <div id="meeting-room-area">
+    </div>
+  	
+    <div class="person" id="billgates">
+  		<img class="person-pic" src="img/person/billgates.jpg"/>
+  		<div class="person-status-container">
+  			<p class="person-status">arrived</p>
+  		</div>
+  		<img class="checkmark status-icon" src="img/checkmark1.svg"/>
+  		<img class="wait status-icon" src="img/wait.gif"/>
+  	</div>
+
+    <div class="person" id="mark">
+      <img class="person-pic" src="img/person/markzuckerberg.jpg"/>
+      <div class="person-status-container">
+        <p class="person-status">arrived</p>
+      </div>
+      <img class="checkmark status-icon" src="img/checkmark1.svg"/>
+      <img class="wait status-icon" src="img/wait.gif"/>
+    </div>
+
+    <div style="background: rgba(0,0,0,0.5); width: 250px; height: 200px;"> </div>
+  </body>
+
+  <style>
+  #officelayout {
+  	position: absolute;
+  	left: 0px;
+  	top: 0px;
+  }
+
+  #meeting-room-area {
+    position: absolute;
+    left: 15px;
+    top: 19px;
+    width: 225px;
+    height: 166px;
+  }
+
+  #meeting-room-area:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .meeting-room-selected {
+    
+  }
+
+  .person {
+  	position: absolute;
+  	transition: top 2s, left 2s
+  }
+
+  .person .person-pic {
+  	width: 50px;
+  	height: 50px;
+  	position: absolute;
+  	left: 0px;
+  	top: 0px;
+  }
+
+  .person .status-icon {
+  	width: 40px;
+  	height: 40px;
+  	position: absolute;
+  	left: 30px;
+  	top: -20px;
+  	/* image opacity */
+  	opacity: 1.0;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+  }
+
+  .person .checkmark {
+  	display: none;
+  }
+
+  .person .wait {
+  	display: none;
+  }
+
+  .person .person-status-container {
+  	height: 50px;
+  	width: 250px;
+  	overflow: hidden;
+  	position: absolute;
+  	left: 50px;
+  	top: 0px;
+  	background-color: rgba(63, 192, 127, 0.8);
+  	display: none;
+  }
+
+  .person .person-status {
+  	height: 50px;
+  	/*position: absolute;
+  	left: 50px;
+  	top: 0px;*/
+    color: #e6e6e6;
+    font-size: 30px;
+    margin: 5px 10px;
+    box-sizing: border-box;
+  }
+
+  #billgates {
+  	left: 250px;
+  	top: 250px;
+  }
+
+  #mark {
+    left: 400px;
+    top: 200px;
+  }
+  </style>
+
+  <script src="js/jquery-3.0.0.min.js"></script>
+
+  <script type="text/javascript">
+  	(function() {
+  		var confroom1 = {xmin:20, ymin: 20, xmax: 200, ymax: 140};
+
+  		var samplePositions = [
+  			{x: 250, y: 250},
+  			{x: 200, y: 250},
+  			{x: 200, y: 200},
+  			{x: 150, y: 200},
+  			{x: 100, y: 200},
+  			{x: 100, y: 100},
+  			{x: 100, y: 100},
+  			{x: 100, y: 100},
+  			{x: 100, y: 100},
+        {x: 100, y: 100},
+        {x: 100, y: 100},
+  			{x: 100, y: 200},
+  			{x: 150, y: 200},
+  			{x: 200, y: 200},
+  			{x: 200, y: 250},
+  			{x: 250, y: 250},
+  		];
+
+  		var samplePositionsIdx = 0;
+
+  		var billgatesInConfroom1 = false;
+
+  		/**
+	  	 *
+	  	 */
+	  	function positionChange() {
+	  		if (samplePositionsIdx >= (samplePositions.length - 1)) {
+	  			samplePositionsIdx = 0;
+	  		} else {
+	  			samplePositionsIdx++;
+	  		}
+
+	  		var samplePosition = samplePositions[samplePositionsIdx];
+
+	  		$("#billgates").css("left", samplePosition.x + "px");
+	  		$("#billgates").css("top", samplePosition.y + "px");
+
+	  		// determine if the person is in conference room
+	  		if (!billgatesInConfroom1 && inConfroom1(samplePosition.x, samplePosition.y)) {
+	  			billgatesInConfroom1 = true;
+	  			// trigger process when it is in confroom1
+	  			onArrivingConfroom1($("#billgates"));
+	  		}
+
+	  		if (billgatesInConfroom1 && !inConfroom1(samplePosition.x, samplePosition.y)) {
+	  			billgatesInConfroom1 = false;
+	  			onLeavingConfroom1($("#billgates"));
+	  		}
+
+	  	}
+
+	  	setInterval(positionChange, 1000);
+
+
+
+
+      var markSamplePositions = [
+        {x: 400, y: 200},
+        {x: 350, y: 200},
+        {x: 300, y: 200},
+        {x: 250, y: 150},
+        {x: 100, y: 100},
+        {x: 50, y: 50},
+        {x: 50, y: 50},
+        {x: 50, y: 50},
+        {x: 50, y: 50},
+        {x: 50, y: 50},
+        {x: 50, y: 50},
+        {x: 100, y: 100},
+        {x: 250, y: 150},
+        {x: 300, y: 200},
+        {x: 350, y: 200},
+        {x: 400, y: 200},
+      ];
+
+      var markSamplePositionsIdx = 0;
+
+      var markInConfroom1 = false;
+
+      /**
+       *
+       */
+      function markPositionChange() {
+        if (markSamplePositionsIdx >= (markSamplePositions.length - 1)) {
+          markSamplePositionsIdx = 0;
+        } else {
+          markSamplePositionsIdx++;
+        }
+
+        var markSamplePosition = markSamplePositions[markSamplePositionsIdx];
+
+        $("#mark").css("left", markSamplePosition.x + "px");
+        $("#mark").css("top", markSamplePosition.y + "px");
+
+        // determine if the person is in conference room
+        if (!markInConfroom1 && inConfroom1(markSamplePosition.x, markSamplePosition.y)) {
+          markInConfroom1 = true;
+          // trigger process when it is in confroom1
+          onArrivingConfroom1($("#mark"));
+        }
+
+        if (markInConfroom1 && !inConfroom1(markSamplePosition.x, markSamplePosition.y)) {
+          markInConfroom1 = false;
+          onLeavingConfroom1($("#mark"));
+        }
+
+      }
+
+      setInterval(markPositionChange, 1000);
+
+
+
+
+	  	/**
+	  	 * determine if the person is in the conference room
+	  	 */
+	  	function inConfroom1(x, y) {
+	  		var inside = false;
+	  		if (x >= confroom1.xmin 
+	  			&& x <= confroom1.xmax
+	  			&& y >= confroom1.ymin
+	  			&& y <= confroom1.ymax) {
+	  			inside = true;
+	  		}
+
+	  		return inside;
+	  	}
+
+	  	function onArrivingConfroom1(personElem) {
+	  		personElem.find(".person-status").text("arrived");
+	  		personElem.children(".person-status-container").show();
+	  		personElem.children(".wait").show();
+
+	  		setTimeout(showAdding, 1000, personElem);
+
+	  		
+	  	}
+
+	  	function onLeavingConfroom1(personElem) {
+	  		personElem.find(".person-status").text("");
+	  		personElem.children(".person-status-container").hide();
+	  		personElem.children(".checkmark").css("display", "none");
+	  	}
+
+	  	function showAdding(personElem) {
+	  		personElem.children(".wait").show();
+	  		personElem.find(".person-status").text("Adding to Spark.");
+
+	  		setTimeout(showAdded, 1000, personElem);
+	  	}
+
+	  	function showAdded(personElem) {
+	  		personElem.children(".wait").hide();
+	  		personElem.find(".person-status").text("Added to Spark.");
+	  		personElem.children(".checkmark").show();
+	  	}
+  	})();
+  	
+  </script>
+</html>

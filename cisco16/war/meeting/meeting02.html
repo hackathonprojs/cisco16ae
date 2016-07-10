@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=600, initial-scale=1">
+    <title>meeting integration</title>
+  </head>
+  <body> 
+  	<img id="officelayout" title="" alt="" src="officelayout.png"/>
+  	<div class="person" id="billgates">
+  		<img class="person-pic" src="billgates.jpg"/>
+  		<img class="checkmark" src="img/checkmark1.svg"/>
+  		<div class="person-status-container">
+  			<h2 class="person-status"></h2>
+  		</div>
+  	</div>
+    <div style="background: rgba(0,0,0,0.5); width: 250px; height: 200px;"> </div>
+  </body>
+
+  <style>
+  #officelayout {
+  	position: absolute;
+  	left: 0px;
+  	top: 0px;
+  }
+
+  .person {
+  	position: absolute;
+  	transition: top 2s, left 2s
+  }
+
+  .person .person-pic {
+  	width: 50px;
+  	height: 50px;
+  	position: absolute;
+  	left: 0px;
+  	top: 0px;
+  }
+
+  .person .checkmark {
+  	display: none;
+  	width: 40px;
+  	height: 40px;
+  	position: absolute;
+  	left: 30px;
+  	top: -20px;
+  	
+  	/* image opacity */
+  	opacity: 1.0;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+  }
+
+  .person .person-status-container {
+  	height: 50px;
+  	width: 200px;
+  	overflow: hidden;
+  	position: absolute;
+  	left: 50px;
+  	top: 0px;
+  	/*background-color: rgba(63, 192, 127, 0.6);*/
+  }
+
+  .person .person-status {
+  	height: 50px;
+  	position: absolute;
+  	/*left: 50px;
+  	top: 0px;*/
+  	color: white;
+  }
+
+  #billgates {
+  	left: 250px;
+  	top: 250px;
+  }
+  </style>
+
+  <script src="js/jquery-3.0.0.min.js"></script>
+
+  <script type="text/javascript">
+  	(function() {
+  		var confroom1 = {xmin:20, ymin: 20, xmax: 200, ymax: 140};
+
+  		var samplePositions = [
+  			{x: 250, y: 250},
+  			{x: 200, y: 250},
+  			{x: 200, y: 200},
+  			{x: 150, y: 200},
+  			{x: 100, y: 200},
+  			{x: 100, y: 100},
+  			{x: 100, y: 100},
+  			{x: 100, y: 100},
+  			{x: 100, y: 100},
+  			{x: 100, y: 200},
+  			{x: 150, y: 200},
+  			{x: 200, y: 200},
+  			{x: 200, y: 250},
+  			{x: 250, y: 250},
+  		];
+
+  		var samplePositionsIdx = 0;
+
+  		var billgatesInConfroom1 = false;
+
+  		/**
+	  	 *
+	  	 */
+	  	function positionChange() {
+	  		if (samplePositionsIdx >= (samplePositions.length - 1)) {
+	  			samplePositionsIdx = 0;
+	  		} else {
+	  			samplePositionsIdx++;
+	  		}
+
+	  		var samplePosition = samplePositions[samplePositionsIdx];
+
+	  		$("#billgates").css("left", samplePosition.x + "px");
+	  		$("#billgates").css("top", samplePosition.y + "px");
+
+	  		// determine if the person is in conference room
+	  		if (!billgatesInConfroom1 && inConfroom1(samplePosition.x, samplePosition.y)) {
+	  			billgatesInConfroom1 = true;
+	  			// trigger process when it is in confroom1
+	  			onArrivingConfroom1($("#billgates"));
+	  		}
+
+	  		if (billgatesInConfroom1 && !inConfroom1(samplePosition.x, samplePosition.y)) {
+	  			billgatesInConfroom1 = false;
+	  			onLeavingConfroom1($("#billgates"));
+	  		}
+
+	  	}
+
+	  	setInterval(positionChange, 1000);
+
+	  	/**
+	  	 * determine if the person is in the conference room
+	  	 */
+	  	function inConfroom1(x, y) {
+	  		var inside = false;
+	  		if (x >= confroom1.xmin 
+	  			&& x <= confroom1.xmax
+	  			&& y >= confroom1.ymin
+	  			&& y <= confroom1.ymax) {
+	  			inside = true;
+	  		}
+
+	  		return inside;
+	  	}
+
+	  	function onArrivingConfroom1(personElem) {
+	  		personElem.children(".person-status").text("arrived");
+	  		personElem.children(".checkmark").css("display", "block");
+	  	}
+
+	  	function onLeavingConfroom1(personElem) {
+	  		personElem.children(".person-status").text("");
+        personElem.children(".checkmark").css("display", "none");
+	  	}
+  	})();
+  	
+  </script>
+</html>
