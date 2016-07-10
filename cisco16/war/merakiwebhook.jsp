@@ -14,6 +14,11 @@ String result = "";
 
 log.warning("test");
 
+// this 28...94 string is the validator.
+// meraki server will first make a get http request to our server.  
+// we have to reply with the validator string for this to work.
+// after that, meraki server will make post request to send us the 
+// data.
 String dataToShow = "28499a6707fc14df34b1f10c7ae8193510d7b194";
 
 //reading using reader because the sender does not send it through parameter.
