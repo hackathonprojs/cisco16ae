@@ -22,15 +22,20 @@
 
 (function(){
   
-	
-	
-  'use-strict';
-
   
   // on ready render data
   $(document).ready(function() {
     //$.table_of_contacts.get.init();
     
+	  
+	$.getJSON("sampledata.jsp", function(data){
+		var items = [];
+		alert(data);
+		  $.each( data, function( key, val ) {
+		    items.push( "<li id='" + key + "'>" + val + "</li>" );
+		  });
+		alert(items.join(""));
+	});  
     $("#main-table tr").click(function(){
 		//$(this).addClass('selected').siblings().removeClass('selected');
 		$(this).addClass('selected');
@@ -38,4 +43,4 @@
 		//alert(value);    
 	});
   });
-})().call(this);
+})();
