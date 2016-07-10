@@ -89,6 +89,10 @@ body{
   border-radius:100%;
 }
 
+.box-table .row-template{
+	display: none;
+}
+
 
 /* = Responsive table
 ------------------------*/
