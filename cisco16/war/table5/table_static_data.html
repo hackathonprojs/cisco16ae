@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- Google fonts -->
+<link href='http://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="table.css">
+<link rel="stylesheet" href="fluid-compass-button.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="table.js"></script>
+</head>
+
+<!-- Description -->
+<h1 class="description">
+  Users in Same Conference Room
+</h1>
+
+<div class="box-table">
+<table id="main-table" data-fn="contacts" data-url="http://codepen.io/nakome/pen/DnEvr.js">
+	<thead>
+		<tr>
+			<th>Photo</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Distance</th>
+			<th>Location</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="user-photo"><img class="user-tumb" src="https://raw.githubusercontent.com/hackathonprojs/cisco16/master/img/person/billgates.jpg"></td>
+			<td class="user-name">Manolo Smith</td>
+			<td class="user-email">jhony@site.com</td>
+			<td class="user-phone">1-555-222-333</td>
+			<td class="user-distance">1</td>
+			<td class="user-room">Conf Room 1</td>
+		</tr>
+		<tr>
+			<td class="user-photo"><img class="user-tumb" src="https://raw.githubusercontent.com/hackathonprojs/cisco16/master/img/person/markzuckerberg.jpg"></td>
+			<td>Carla Doe</td>
+			<td>carladoe@site.com</td>
+			<td>1-333-111-555</td>
+			<td>2</td>
+			<td>Conf Room 1</td>
+		</tr>
+		<tr>
+			<td class="user-photo"><img class="user-tumb" src="https://raw.githubusercontent.com/hackathonprojs/cisco16/master/img/person/marissamayer.jpg"></td>
+			<td>Stefan Varela</td>
+			<td>stefano@site.com</td>
+			<td>2-444-222-777</td>
+			<td>3</td>
+			<td>Conf Room 1</td>
+		</tr>
+		<tr>
+			<td class="user-photo"><img class="user-tumb" src="https://raw.githubusercontent.com/hackathonprojs/cisco16/master/img/person/chunkrobbins.jpg"></td>
+			<td>Angeline Julai</td>
+			<td>angeline@site.com</td>
+			<td>2-555-555-555</td>
+			<td>4</td>
+			<td>Conf Room 1</td>
+		</tr>
+		<tr>
+			<td class="user-photo"><img class="user-tumb" src="https://raw.githubusercontent.com/hackathonprojs/cisco16/master/img/person/sundarpichai.jpg"></td>
+			<td>New name</td>
+			<td>angeline@site.com</td>
+			<td>2-555-555-555</td>
+			<td>5</td>
+			<td>Conf Room 1</td>
+		</tr>
+		<tr class="row-template">
+			<td class="user-photo"><img class="user-tumb" src="https://raw.githubusercontent.com/hackathonprojs/cisco16/master/img/person/billgates.jpg"></td>
+			<td class="user-name">Manolo Smith</td>
+			<td class="user-email">jhony@site.com</td>
+			<td class="user-phone">1-555-222-333</td>
+			<td class="user-distance">1</td>
+			<td class="user-room">Conf Room 1</td>
+		</tr>
+	</tbody>
+	
+	
+</table>
+
+</div>
+
+<div style="margin: 20px auto; width: 50px;">
+	<a href="#" class="myButton" onclick="$('#middle-button').show()">Add</a>
+</div>
+
+<div id="middle-button" style="display: none;">
+	<div class="button">
+		<div class="compass"></div>
+		<div class="msg">Add to Spark</div>	
+	</div>
+</div>
+
+<style>
+.myButton {
+	-moz-box-shadow: 3px 4px 0px 0px #8a2a21;
+	-webkit-box-shadow: 3px 4px 0px 0px #8a2a21;
+	box-shadow: 3px 4px 0px 0px #8a2a21;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24437));
+	background:-moz-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:-o-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:-ms-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24437',GradientType=0);
+	background-color:#c62d1f;
+	-moz-border-radius:18px;
+	-webkit-border-radius:18px;
+	border-radius:18px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24437), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:-o-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24437', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24437;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+</style>
+
+</html>
